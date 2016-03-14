@@ -19,6 +19,14 @@ app.get('/state/:stateID', function(req,res){ //get state legislators informatio
 	})
 })
 
+app.get('/legislator/cid/:cid', function(req,res){
+	var cid = req.params.cid;
+	request.get('http://www.opensecrets.org/api/?method=getLegislators&id=' + cid +'&apikey=3888a2822de7936ee277abdcc92caa1b&output=json', function(error,response,body){
+		var newBody = JSON.parse(body)
+		res.send(newBody.response)
+	})
+})
+
 app.listen(3000, function(){
 	console.log('listening on 3000')
 })

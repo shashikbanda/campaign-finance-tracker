@@ -10,4 +10,8 @@ app.config(function($routeProvider){
 		templateUrl:'/partials/legislators.html',
 		controller: 'LegislatorsDisplayController'
 	})
+	.when('/legislator/:cid',{
+		templateUrl:'partials/legislatorpersonalpage.html',
+		controller: 'LegislatorPersonalPageController'
+	})
 })
