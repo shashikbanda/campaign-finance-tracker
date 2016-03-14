@@ -6,4 +6,11 @@
 		<option value="VT">Vermont</option>
 		<option value="CA">California</option>
 	</select>
+	<div ng-repeat="legislator in stateLegislators track by $index">
+		<div class="bio" ng-click="goToLegislatorPage(legislator)">
+			{{legislator['@attributes'].firstlast}} - {{legislator['@attributes'].party}} - {{state}}
+			<br>
+			<img src="https://theunitedstates.io/images/congress/225x275/{{legislator['@attributes'].bioguide_id}}.jpg">
+		</div>
+	</div>
 </div>
