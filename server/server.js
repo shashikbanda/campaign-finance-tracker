@@ -27,6 +27,14 @@ app.get('/legislator/cid/:cid', function(req,res){
 	})
 })
 
+app.get('/legislator/sunlight/:bioguideid',function(req,res){
+	var bioguide_id = req.params.bioguideid;
+	request.get('https://congress.api.sunlightfoundation.com/legislators?bioguide_id=' +bioguide_id+'&apikey=4def00d383ea4b4fb61822f11db486fc',function(error,response,body){
+		var newBody = JSON.parse(body);
+		res.send(newBody)
+	}) //4def00d383ea4b4fb61822f11db486fc
+})
+
 app.listen(3000, function(){
 	console.log('listening on 3000')
 })
