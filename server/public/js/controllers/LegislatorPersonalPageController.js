@@ -29,6 +29,8 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		})
 	})
 	var data = [];
+	var dataArray = [];
+	var labelArray = [];
 	function getRandomColor() {
 	    var letters = '0123456789ABCDEF'.split('');
 	    var color = '#';
@@ -59,7 +61,30 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	$http.get('/legislator/contribution/sector/'+cid)
 	.then(function(sectordata){
 		var sectorContributionData = sectordata.data.response.sectors.sector;
-		console.log(sectorContributionData) //SECTOR DATA... NEED TO LOOP THROUGH AND ADD TO CHART JS DATA MODEL
-		
+		// console.log(sectorContributionData) //SECTOR DATA... NEED TO LOOP THROUGH AND ADD TO CHART JS DATA MODEL
+		for(var i = 0; i < sectorContributionData.length; i++){
+			labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
+			dataArray.push(sectorContributionData[i]['@attributes'].total)
+		}
+		console.log(labelArray)
+		console.log(dataArray)
+	})
+	.then(function(){
+		var data = {
+		    labels: labelArray,
+		    datasets: [
+		        {
+		            label: "My First dataset",
+		            fillColor: "rgba(220,220,220,0.5)",
+		            strokeColor: "rgba(220,220,220,0.8)",
+		            highlightFill: "rgba(220,220,220,0.75)",
+		            highlightStroke: "rgba(220,220,220,1)",
+		            data: dataArray
+		        }
+		    ]
+		};
+		var ctx = document.getElementById("bySector").getContext("2d");
+		var myBarChart = new Chart(ctx).Bar(data);
+
 	})
 })
