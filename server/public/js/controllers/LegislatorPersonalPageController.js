@@ -28,28 +28,32 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 			}
 		})
 	})
-	// Get the context of the canvas element we want to select
-	var data = [
-	    {
-	        value: 300,
-	        color:"#F7464A",
-	        highlight: "#FF5A5E",
-	        label: "Red"
-	    },
-	    {
-	        value: 50,
-	        color: "#46BFBD",
-	        highlight: "#5AD3D1",
-	        label: "Green"
-	    },
-	    {
-	        value: 100,
-	        color: "#FDB45C",
-	        highlight: "#FFC870",
-	        label: "Yellow"
+	var data = [];
+	function getRandomColor() {
+	    var letters = '0123456789ABCDEF'.split('');
+	    var color = '#';
+	    for (var i = 0; i < 6; i++ ) {
+	        color += letters[Math.floor(Math.random() * 16)];
 	    }
-	]
-	var ctx = document.getElementById("myChart").getContext("2d");
-
-	var myDoughnutChart = new Chart(ctx).Doughnut(data);
+	    return color;
+	}
+	$http.get('/legislator/contribution/industry/'+cid)
+	.then(function(industrydata){
+		var industryContributionData = industrydata.data.response.industries.industry;
+		for(var i=0; i<industryContributionData.length;i++){
+			// console.log(industryContributionData[i]['@attributes'])
+			data.push(
+			{	
+				value : industryContributionData[i]['@attributes'].total,
+				color : getRandomColor(),
+				highlight : getRandomColor(),
+				label : industryContributionData[i]['@attributes'].industry_name
+			})
+		}
+	})
+	.then(function(){
+		console.log(data)
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var myDoughnutChart = new Chart(ctx).Doughnut(data);
+	})
 })
