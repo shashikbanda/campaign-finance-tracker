@@ -56,4 +56,10 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		var ctx = document.getElementById("myChart").getContext("2d");
 		var myDoughnutChart = new Chart(ctx).Doughnut(data);
 	})
+	$http.get('/legislator/contribution/sector/'+cid)
+	.then(function(sectordata){
+		var sectorContributionData = sectordata.data.response.sectors.sector;
+		console.log(sectorContributionData) //SECTOR DATA... NEED TO LOOP THROUGH AND ADD TO CHART JS DATA MODEL
+		
+	})
 })
