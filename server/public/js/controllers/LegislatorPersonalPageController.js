@@ -87,7 +87,30 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		var myBarChart = new Chart(ctx).Bar(data);
 
 	})
+	function parseString(inputWord){
+	    var newWord = inputWord.toLowerCase();
+	    var keywordArray = [];
+	    var startIndex = 0;
+	    var endIndex = 0;
+	    for(var i=0; i<newWord.length;i++){
+	        if(newWord[i] === "/" || newWord[i] === '&' || newWord[i] === ' '){
+	            endIndex = i;
+	            keywordArray.push(newWord.substring(startIndex,endIndex));
+	            startIndex = i+1;
+	        }
+	    }
+	    keywordArray.push(newWord.substring(startIndex,newWord.length))
+	    
+	    for(var j = 0 ; j < keywordArray.length; j++){
+	        if(keywordArray[j] === ' ' || keywordArray[j] === '&' || newWord[i] === "/"){
+	            keywordArray.splice(j, 2);
+	        }
+	    }
+	    return keywordArray;
+	}
+
 	$scope.getAreaCategory = function(area){
-		console.log(area)
+		$scope.category = parseString(area); // category that needs to be parsed and compared to subject in API call
+		console.log($scope.category)
 	}
 })
