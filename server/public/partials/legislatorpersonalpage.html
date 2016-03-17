@@ -8,7 +8,6 @@
               <span class="black-text" ng-show="house">
                 <h1>{{name}} | {{party}} - {{state}} - {{district}}</h1>
                 <p> {{chamber}}</p>
-                <i class="material-icons">twitter-box</i>
               </span>
               <span class="black-text" ng-show="senate">
                 <h1>{{name}} | {{party}} - {{state}}</h1>
@@ -45,8 +44,8 @@
     <div class="col s4">
         <div class="card-panel grey lighten-5 z-depth-1" style="text-align:center">
         <h4>Vote History by Industry</h4>
-            <select class="browser-default" >
-                <option ng-repeat="sector in allLabelArray" value={{sector}}>{{sector}}</option>
+            <select class="browser-default" ng-model="areaCategory" ng-change="getAreaCategory(areaCategory)">
+                <option ng-repeat="category in allLabelArray" value={{category}}>{{category}}</option>
             </select>
         </div>
     </div>

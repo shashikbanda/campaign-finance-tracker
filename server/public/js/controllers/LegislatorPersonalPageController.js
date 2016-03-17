@@ -62,13 +62,11 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	$http.get('/legislator/contribution/sector/'+cid)
 	.then(function(sectordata){
 		var sectorContributionData = sectordata.data.response.sectors.sector;
-		// console.log(sectorContributionData) //SECTOR DATA... NEED TO LOOP THROUGH AND ADD TO CHART JS DATA MODEL
 		for(var i = 0; i < sectorContributionData.length; i++){
 			$scope.allLabelArray.push(sectorContributionData[i]['@attributes'].sector_name)
 			$scope.labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
 			dataArray.push(sectorContributionData[i]['@attributes'].total)
 		}
-		// console.log($scope.labelArray)
 		console.log(dataArray)
 	})
 	.then(function(){
@@ -89,4 +87,7 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		var myBarChart = new Chart(ctx).Bar(data);
 
 	})
+	$scope.getAreaCategory = function(area){
+		console.log(area)
+	}
 })
