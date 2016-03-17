@@ -5,8 +5,13 @@
 		<option value="" disabled selected>Select State</option>
 		<option value="VT">Vermont</option>
 		<option value="CA">California</option>
+		<option value="FL">Florida</option>
 	</select>
-	<div ng-repeat="legislator in stateLegislators track by $index">
+
+	<h5>Search</h5>
+	<input type="text" ng-model="search">
+
+	<div ng-repeat="legislator in stateLegislators | filter:search">
 		<div class="bio" ng-click="goToLegislatorPage(legislator)">
 			{{legislator['@attributes'].firstlast}} - {{legislator['@attributes'].party}} - {{state}}
 			<br>

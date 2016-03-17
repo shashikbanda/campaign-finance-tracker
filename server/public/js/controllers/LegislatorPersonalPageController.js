@@ -57,7 +57,7 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	.then(function(){
 		console.log(data)
 		var ctx = document.getElementById("myChart").getContext("2d");
-		var myDoughnutChart = new Chart(ctx).Doughnut(data);
+		var myDoughnutChart = new Chart(ctx).Pie(data);
 	})
 	$http.get('/legislator/contribution/sector/'+cid)
 	.then(function(sectordata){

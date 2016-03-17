@@ -12,7 +12,8 @@ app.controller('LegislatorsDisplayController',function($scope,$http,$location){
 
 	$scope.goToLegislatorPage = function(person){
 		var personCID = person['@attributes'].cid;
-		$location.url("/legislator/"+personCID)
+		$location.url("/legislator/"+personCID);
+		$scope.showSearchBox = true;
 	}
 
 
