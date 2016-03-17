@@ -102,7 +102,7 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	    keywordArray.push(newWord.substring(startIndex,newWord.length))
 	    
 	    for(var j = 0 ; j < keywordArray.length; j++){
-	        if(keywordArray[j] === ' ' || keywordArray[j] === '&' || newWord[i] === "/"){
+	        if(keywordArray[j] === ' ' || keywordArray[j] === '&' || newWord[i] === "/" || newWord[i] === ''){
 	            keywordArray.splice(j, 2);
 	        }
 	    }
