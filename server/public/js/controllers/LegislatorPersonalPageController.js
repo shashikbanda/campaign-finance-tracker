@@ -30,7 +30,8 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	})
 	var data = [];
 	var dataArray = [];
-	var labelArray = [];
+	$scope.labelArray = [];
+	$scope.allLabelArray = [];
 	function getRandomColor() {
 	    var letters = '0123456789ABCDEF'.split('');
 	    var color = '#';
@@ -43,7 +44,7 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	.then(function(industrydata){
 		var industryContributionData = industrydata.data.response.industries.industry;
 		for(var i=0; i<industryContributionData.length;i++){
-			// console.log(industryContributionData[i]['@attributes'])
+			$scope.allLabelArray.push(industryContributionData[i]['@attributes'].industry_name)
 			data.push(
 			{	
 				value : industryContributionData[i]['@attributes'].total,
@@ -63,18 +64,19 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		var sectorContributionData = sectordata.data.response.sectors.sector;
 		// console.log(sectorContributionData) //SECTOR DATA... NEED TO LOOP THROUGH AND ADD TO CHART JS DATA MODEL
 		for(var i = 0; i < sectorContributionData.length; i++){
-			labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
+			$scope.allLabelArray.push(sectorContributionData[i]['@attributes'].sector_name)
+			$scope.labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
 			dataArray.push(sectorContributionData[i]['@attributes'].total)
 		}
-		console.log(labelArray)
+		// console.log($scope.labelArray)
 		console.log(dataArray)
 	})
 	.then(function(){
 		var data = {
-		    labels: labelArray,
+		    labels: $scope.labelArray,
 		    datasets: [
 		        {
-		            label: "My First dataset",
+		            label: "Contributions by Sector",
 		            fillColor: "rgba(220,220,220,0.5)",
 		            strokeColor: "rgba(220,220,220,0.8)",
 		            highlightFill: "rgba(220,220,220,0.75)",

@@ -8,6 +8,7 @@
               <span class="black-text" ng-show="house">
                 <h1>{{name}} | {{party}} - {{state}} - {{district}}</h1>
                 <p> {{chamber}}</p>
+                <i class="material-icons">twitter-box</i>
               </span>
               <span class="black-text" ng-show="senate">
                 <h1>{{name}} | {{party}} - {{state}}</h1>
@@ -20,16 +21,35 @@
 
 <div class="row">
     <div class="col s4">
-        <h4>Contributions by Industry in 2014*</h4>
+        <h4>Contributions by Industry</h4>
+        <label>Year</label>
+          <select class="browser-default">
+            <option value="" disabled selected>Select Year Nigga</option>
+            <option value="2012">2012</option>
+            <option value="2014">2014</option>
+            <option value="2016">2016</option>
+          </select>
         <canvas id="myChart" width="400" height="400"></canvas>
     </div>
     <div class="col s4">
-        <h4>Contributions by Sector in 2014*</h4>
+        <h4>Contributions by Sector</h4>
+        <label>Year</label>
+          <select class="browser-default">
+            <option value="" disabled selected>Select Year Nigga</option>
+            <option value="2012">2012</option>
+            <option value="2014">2014</option>
+            <option value="2016">2016</option>
+          </select>
         <canvas id="bySector" width="400" height="400"></canvas>
     </div>
     <div class="col s4">
         <div class="card-panel grey lighten-5 z-depth-1" style="text-align:center">
-            Hello
+        <h4>Vote History by Industry</h4>
+            <select class="browser-default" >
+                <option ng-repeat="sector in allLabelArray" value={{sector}}>{{sector}}</option>
+            </select>
+            <a class="twitter-timeline" href="https://twitter.com/fucktyler" data-widget-id="710533958815973376">Tweets by @NancyPelosi</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
     </div>
 
