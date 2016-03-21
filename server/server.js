@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var request = require('request');
-
 var knex = require('./db/knex');
 var pg = require('pg');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,6 +21,21 @@ app.post('/new/register', function(req,res){
 	var zipcode = req.body.zipcode;
 	var email = req.body.email;
 	var password = req.body.password;
+	
+	knex('users').insert({
+		username:username,
+		zip:zipcode,
+		email:email
+		//password:password
+	})
+	.then(function(data){
+		var hash = bcrypt.hashSync(password,8);
+		knex('users').where({username:username})
+		.update({password:hash})
+		.then(function(data){
+			console.log("check to see if hash password has updated lil man")
+		})
+	})
 })
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information
