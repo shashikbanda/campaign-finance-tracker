@@ -14,4 +14,8 @@ app.config(function($routeProvider){
 		templateUrl:'partials/legislatorpersonalpage.html',
 		controller: 'LegislatorPersonalPageController'
 	})
+	.when('/register',{
+		templateUrl:'/partials/register.html',
+		controller:'RegisterController'
+	})
 })

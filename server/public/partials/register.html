@@ -1,0 +1,40 @@
+<div class="container">
+<h2>Register</h2>
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="first_name" type="text" class="validate" ng-model="username">
+        <label for="first_name">First Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="zip_code" type="number" ng-model="zipcode">
+        <label for="zip_code">Zip Code</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" ng-model="password">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" ng-model="passwordconfirm">
+        <label for="password">Password (Confirm)</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="email" type="text" class="validate" ng-model="email">
+        <label for="email">Email</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit" ng-click="submitForm()">Submit
+       <i class="material-icons right">send</i>
+     </button>
+  </form>
+</div>
+</div>

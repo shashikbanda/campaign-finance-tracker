@@ -1,10 +1,11 @@
 var express = require('express');
 var app = express();
-var cors = require('cors');
 var path = require('path');
-
-
 var request = require('request');
+
+var knex = require('./db/knex');
+var pg = require('pg');
+
 
 app.use('/', express.static(path.join(__dirname, "/public")));
 
