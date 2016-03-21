@@ -22,20 +22,26 @@ app.post('/new/register', function(req,res){
 	var email = req.body.email;
 	var password = req.body.password;
 	
-	knex('users').insert({
-		username:username,
-		zip:zipcode,
-		email:email
-		//password:password
-	})
+	knex('users').where({username:username})
 	.then(function(data){
-		var hash = bcrypt.hashSync(password,8);
-		knex('users').where({username:username})
-		.update({password:hash})
-		.then(function(data){
-			console.log("check to see if hash password has updated lil man")
-		})
+		if(data.length === 0){
+			knex('users')
+			.insert({
+				username:username,
+				zip:zipcode,
+				email:email
+			})
+			.then(function(data){
+				var hash = bcrypt.hashSync(password,8);
+				knex('users').where({username:username})
+				.update({password:hash})
+				.then(function(data){
+					console.log("check to see if hash password has updated lil man")
+				})
+			})
+		}
 	})
+	
 })
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information
