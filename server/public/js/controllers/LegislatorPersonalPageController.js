@@ -112,5 +112,6 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	$scope.getAreaCategory = function(area){
 		$scope.category = parseString(area); // category that needs to be parsed and compared to subject in API call
 		console.log($scope.category)
+		
 	}
 })

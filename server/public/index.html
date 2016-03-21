@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>    
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Corruption in Politics</title>
+	
 </head>
 <body>
 
@@ -12,11 +13,18 @@
 		<a href="#/" class="brand-logo">Corruption Tracker</a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 		<li><a href="/#/legislators">Search by State</a></li>
-		<li><a href="badges.html">Components</a></li>
+		<li><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Sign In</a></li>
 		<li><a href="collapsible.html">JavaScript</a></li>
 		</ul>
 	</div>
 </nav>
+<div id="modal1" class="modal">
+	<div class="modal-content">
+    	<h4>Modal Header</h4>
+    	<p>A bunch of text</p>
+    </div>
+</div>
+
 
 <div ng-view>
 </div>
@@ -46,12 +54,10 @@
 	</div>
 </footer> -->
 
-
-
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.js"></script>
+
+
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
@@ -60,6 +66,12 @@
 <script src="js/controllers/MainController.js"></script>
 <script src="js/controllers/LegislatorsDisplayController.js"></script>
 <script src="js/controllers/LegislatorPersonalPageController.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>
 
 </body>
 </html>

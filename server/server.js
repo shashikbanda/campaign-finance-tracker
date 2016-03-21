@@ -3,12 +3,14 @@ var app = express();
 var cors = require('cors');
 var path = require('path');
 
+
 var request = require('request');
 
 app.use('/', express.static(path.join(__dirname, "/public")));
 
 app.get('/',function(req, res){
 	res.sendFile(path.resolve(__dirname + '/public/index.html'));
+
 });
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information
@@ -50,6 +52,8 @@ app.get('/legislator/contribution/sector/:cid', function(req,res){
 		res.send(newBody)
 	})
 })
+
+// app.get('/')
 
 app.listen(3000, function(){
 	console.log('listening on 3000')
