@@ -17,7 +17,7 @@ app.controller('ProfileController', function($scope,$routeParams,$http){
 	.then(function(){
 		$http.get('/legislator/zip/'+$scope.zip)
 		.then(function(dataa){
-			console.log(data)
+			$scope.congresspeople = dataa.data.results;
 		})
 	})
 	
