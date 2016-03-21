@@ -1,7 +1,7 @@
 var app = angular.module('myApp');
 
 
-app.controller('RegisterController', function($scope,$http){
+app.controller('RegisterController', function($scope,$http,$location){
 	$scope.submitForm = function(){
 		var data = {
 			username : $scope.username,
@@ -11,8 +11,12 @@ app.controller('RegisterController', function($scope,$http){
 		}
 		$http.post('/new/register', data)
 		.then(function(){
-			//redirect to user home page
-			//or further ask to confirm default congressmen
+			//
+		})
+		$http.get('/new/register')
+		.then(function(){
+			console.log("should redirect to personal profile route")
+			$location.path('profile/' + $scope.username)
 		})
 	}
 })

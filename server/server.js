@@ -6,7 +6,11 @@ var knex = require('./db/knex');
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+// var cookieParser = require('cookie-parser');
 
+
+
+// app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, "/public")));
@@ -15,6 +19,10 @@ app.get('/',function(req, res){
 	res.sendFile(path.resolve(__dirname + '/public/index.html'));
 
 });
+
+app.get('/new/register', function(req,res){
+	res.redirect('/#/profile/')
+})
 
 app.post('/new/register', function(req,res){
 	var username = req.body.username;
@@ -35,13 +43,12 @@ app.post('/new/register', function(req,res){
 				var hash = bcrypt.hashSync(password,8);
 				knex('users').where({username:username})
 				.update({password:hash})
-				.then(function(data){
-					console.log("check to see if hash password has updated lil man")
+				.then(function(){
+					res.cookie('username',username)
 				})
 			})
 		}
 	})
-	
 })
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information
@@ -84,7 +91,20 @@ app.get('/legislator/contribution/sector/:cid', function(req,res){
 	})
 })
 
-// app.get('/')
+app.get('/legislator/zip/:zip', function(req,res){
+	var zip = req.params.zip;
+	request.get('https://congress.api.sunlightfoundation.com/legislators/locate?zip='+zip+'&apikey=4def00d383ea4b4fb61822f11db486fc', function(error, response,body){
+		var newBody = JSON.parse(body);
+		res.send(newBody)
+	})
+})
+
+app.get('/user/:username', function(req,res){
+	var username = req.params.username;
+	knex('users').where({username:username}).then(function(data){
+		res.send(data)
+	})
+})
 
 app.listen(3000, function(){
 	console.log('listening on 3000')

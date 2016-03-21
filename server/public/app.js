@@ -18,4 +18,8 @@ app.config(function($routeProvider){
 		templateUrl:'/partials/register.html',
 		controller:'RegisterController'
 	})
+	.when('/profile/:username',{
+		templateUrl: '/partials/profile.html',
+		controller:'ProfileController'
+	})
 })
