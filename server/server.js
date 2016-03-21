@@ -5,14 +5,23 @@ var request = require('request');
 
 var knex = require('./db/knex');
 var pg = require('pg');
+var bodyParser = require('body-parser');
 
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, "/public")));
 
 app.get('/',function(req, res){
 	res.sendFile(path.resolve(__dirname + '/public/index.html'));
 
 });
+
+app.post('/new/register', function(req,res){
+	var username = req.body.username;
+	var zipcode = req.body.zipcode;
+	var email = req.body.email;
+	var password = req.body.password;
+})
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information
 	var stateID = req.params.stateID;
