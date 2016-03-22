@@ -1,11 +1,42 @@
 var app = angular.module('myApp');
 
-app.controller('SignInController', function($scope){
-	$scope.input = {};
+app.controller('SignInController', function($scope,$http,$location){
+	$scope.good = true;
+	$scope.bad = false;
 	$scope.signIn = function(){
-		console.log($scope.input.username)
-		console.log($scope.input.password)
+		var data = {
+			entered_username : $scope.username,
+			entered_password : $scope.password
+		}
+
+		$http.post('/signin',data)
+		.then(function(data){
+			if(data.data.login === true){
+				console.log("sdf")
+				$scope.good = false;
+				$scope.bad = true;
+				$scope.user = $scope.username;
+				$location.path('/profile/'+$scope.username)
+			}
+			else{
+				$scope.status = "Sign In"
+			}
+		})
 		
+	}
+	$scope.logout = function(){
+		$scope.good = true;
+		$scope.bad = false;
+		$scope.user = ""
+		var data = {
+			username : $scope.entered_username
+		}
+		$http.post('/logout', data)
+		.then(function(dataa){
+			if(dataa.data.logout === true){
+				$location.path('/')
+			}
+		})
 	}
 	
 })

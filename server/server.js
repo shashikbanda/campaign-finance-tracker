@@ -7,11 +7,17 @@ var knex = require('./db/knex');
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session')
 
 
 
-// app.use(cookieParser())
+app.use(cookieParser("abcdefghijklmnopqrstuvwxyz"));
+app.use(cookieSession({
+  name: 'session',
+  keys: ["key1","key2"]
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, "/public")));
@@ -44,9 +50,27 @@ app.post('/new/register', function(req,res){
 				knex('users').where({username:username})
 				.update({password:hash})
 				.then(function(){
-					res.cookie('username',username)
+					//res.cookie('username',username)
 				})
 			})
+		}
+	})
+})
+
+app.post('/logout', function(req,res){
+	req.session.username = "";
+	res.send({logout:true})
+})
+
+app.post('/signin', function(req,res){
+	var enteredUsername = req.body.entered_username;
+	var enteredPassword = req.body.entered_password;
+	console.log(req.session)
+	knex('users').where({username:enteredUsername})
+	.then(function(rows){
+		if(bcrypt.compareSync(enteredPassword,rows[0].password)){
+			req.session.username = enteredUsername;
+			res.json({login:true})
 		}
 	})
 })
