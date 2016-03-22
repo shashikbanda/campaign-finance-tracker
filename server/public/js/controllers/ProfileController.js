@@ -1,14 +1,12 @@
 var app = angular.module('myApp');
 
 
-app.controller('ProfileController', function($scope,$routeParams,$http){
+app.controller('ProfileController', function($scope,$routeParams,$http,$location){
 	$scope.user = $routeParams.username;
 
-	// $http.get('/legislator/zip/'+$scope.zipcode)
-	// .then(function(data){
-	// 	console.log("reaching?")
-	// 	console.log(data)
-	// })
+	$scope.goToLegislator = function(person){
+		$location.path('/legislator/'+person.crp_id)
+	}
 	
 	$http.get('/user/'+$scope.user)
 	.then(function(data){
@@ -20,9 +18,9 @@ app.controller('ProfileController', function($scope,$routeParams,$http){
 			$scope.congresspeople = dataa.data.results;
 		})
 	})
-	.then(function(){
-		var usercongressmen = {congress:$scope.congresspeople}
-		$http.post('/')
-	})
+	// .then(function(){
+	// 	var usercongressmen = {congress:$scope.congresspeople}
+	// 	$http.post('/')
+	// })
 	
 })
