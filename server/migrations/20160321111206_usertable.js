@@ -9,6 +9,10 @@ exports.up = function(knex, Promise) {
   	}),
   	knex.schema.createTable('legislatorsByAssociation', function(table){
   		table.string('username').references('username').inTable("users")
+  		table.string('first_name');
+  		table.string('last_name');
+  		table.string('state_name');
+  		table.string('party');
   		table.string('crp_id');
   		table.string('bioguide_id');
   	})])

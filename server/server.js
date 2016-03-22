@@ -51,30 +51,39 @@ app.post('/new/register', function(req,res){
 	})
 })
 
-app.post('/track', function(req,res){
+app.get('/track/:username', function(req,res){
+	var username = req.params.username;
+	knex('legislatorsByAssociation').where({username:username})
+	.then(function(data){
+		res.send(data)
+	})
+})
+
+app.post('/track/:username', function(req,res){
 	var initialArray = req.body.congresspeoplearray;
 	var username = req.body.username;
 	var crp_id_arr = [];
 	var bioguide_id_arr = [];
 
 	for(let i =0; i < initialArray.length; i++){
-		// crp_id_arr.push(initialArray[i].crp_id);
-		// bioguide_id_arr.push(initialArray[i].bioguide_id)
-		console.log()
 		knex('legislatorsByAssociation')
 		.where({crp_id:initialArray[i].crp_id, bioguide_id:initialArray[i].bioguide_id})
 		.then(function(row){
 			if(row.length===0){
 				knex('legislatorsByAssociation')
-				.insert({username:username,crp_id:initialArray[i].crp_id, bioguide_id:initialArray[i].bioguide_id})
+				.insert({username:username,
+					first_name:initialArray[i].first_name,
+					last_name:initialArray[i].last_name,
+					state_name:initialArray[i].state_name,
+					party:initialArray[i].party,
+					crp_id:initialArray[i].crp_id, 
+					bioguide_id:initialArray[i].bioguide_id})
 				.then(function(dataaa){
-					console.log("done")
+					//
 				})
 			}
 		})
 	}
-	console.log(crp_id_arr);
-	console.log(bioguide_id_arr);
 })
 
 app.get('/state/:stateID', function(req,res){ //get state legislators information

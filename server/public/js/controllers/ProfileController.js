@@ -20,15 +20,18 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 				username : $scope.user,
 				congresspeoplearray : dataa.data.results
 			}
-			$http.post('/track', info)
+			$http.post('/track/'+$scope.user, info)
 			.then(function(){
-				console.log("posted that shit")
+				//console.log("posted that shit")
 			})
 		})
 	})
-	// .then(function(){
-	// 	var usercongressmen = {congress:$scope.congresspeople}
-	// 	$http.post('/')
-	// })
+	.then(function(){
+		$http.get('/track/'+$scope.user)
+		.then(function(people){
+			console.log(people)
+			$scope.congresspersons = people.data;
+		})
+	})
 	
 })
