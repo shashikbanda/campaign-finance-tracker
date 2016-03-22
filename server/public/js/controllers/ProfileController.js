@@ -20,5 +20,9 @@ app.controller('ProfileController', function($scope,$routeParams,$http){
 			$scope.congresspeople = dataa.data.results;
 		})
 	})
+	.then(function(){
+		var usercongressmen = {congress:$scope.congresspeople}
+		$http.post('/')
+	})
 	
 })
