@@ -16,6 +16,14 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 		$http.get('/legislator/zip/'+$scope.zip)
 		.then(function(dataa){
 			$scope.congresspeople = dataa.data.results;
+			var info = {
+				username : $scope.user,
+				congresspeoplearray : dataa.data.results
+			}
+			$http.post('/track', info)
+			.then(function(){
+				console.log("posted that shit")
+			})
 		})
 	})
 	// .then(function(){

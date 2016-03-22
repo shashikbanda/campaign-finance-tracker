@@ -1,15 +1,16 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
 	knex.schema.createTable("users", function(table){
-		table.increments('id').nullable().primary();
-	    table.string('username')
-	    table.string('zip');
-	    table.string('email');
+		//table.increments('id').nullable()
+	    table.string('username').primary();
 	    table.string('password');
+	    table.string('zip');
+	    
   	}),
   	knex.schema.createTable('legislatorsByAssociation', function(table){
   		table.string('username').references('username').inTable("users")
-  		table.specificType('congresspeople', 'text[]')
+  		table.string('crp_id');
+  		table.string('bioguide_id');
   	})])
 };
 
