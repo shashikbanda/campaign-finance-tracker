@@ -110,6 +110,29 @@ app.post('/track/:username', function(req,res){
 	}
 })
 
+app.put('/track/add', function(req,res){
+	var username = req.session.username;
+	var first_name = req.body.first_name;
+	var last_name = req.body.last_name;
+	var state_name = req.body.state_name;
+	var party = req.body.party;
+	var crp_id = req.body.crp_id;
+	var bioguide_id = req.body.bioguide_id;
+	knex('legislatorsByAssociation')
+	.insert({
+		username:username,
+		first_name:first_name,
+		last_name:last_name,
+		state_name:state_name,
+		party:party,
+		crp_id:crp_id,
+		bioguide_id:bioguide_id
+	})
+	.then(function(){
+		console.log("added to db")
+	})
+})
+
 app.get('/state/:stateID', function(req,res){ //get state legislators information
 	var stateID = req.params.stateID;
 	request.get('http://www.opensecrets.org/api/?method=getLegislators&id=' + stateID +'&apikey=3888a2822de7936ee277abdcc92caa1b&output=json',function(error,response,body){

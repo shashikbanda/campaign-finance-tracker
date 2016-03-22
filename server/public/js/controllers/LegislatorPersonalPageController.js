@@ -114,4 +114,29 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		console.log($scope.category)
 		
 	}
+
+	$scope.addToProfile = function(){
+		var cidToTrack = $routeParams.cid; 
+		$http.get('/legislator/cid/'+cidToTrack)
+		.then(function(data){
+			var bioguide_id = data.data.legislator['@attributes'].bioguide_id;
+			$http.get('/legislator/sunlight/'+bioguide_id)
+			.then(function(dataa){
+				var dataToAdd = {
+					bioguide_id : dataa.data.results[0].bioguide_id,
+					crp_id : dataa.data.results[0].crp_id,
+					first_name : dataa.data.results[0].first_name,
+					last_name : dataa.data.results[0].last_name,
+					state_name : dataa.data.results[0].state_name,
+					party : dataa.data.results[0].party
+				}
+
+				$http.put('/track/add',dataToAdd)
+				.then(function(data){
+					console.log("put")
+				})
+
+			})
+		})
+	}
 })
