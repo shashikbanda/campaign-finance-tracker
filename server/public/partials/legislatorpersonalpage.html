@@ -44,10 +44,10 @@
     </div>
     <div class="col s4">
         <div class="card-panel grey lighten-5 z-depth-1" style="text-align:center">
-        <h4>Vote History by Industry</h4>
-            <select class="browser-default" ng-model="areaCategory" ng-change="getAreaCategory(areaCategory)">
-                <option ng-repeat="category in allLabelArray" value={{category}}>{{category}}</option>
-            </select>
+        <h4>Largest Contributors</h4>
+            <div ng-repeat ="org in org_name_arr track by $index">
+            <p>{{org}}</p>
+            </div>
         </div>
     </div>
 
