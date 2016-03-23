@@ -2,6 +2,7 @@ var app = angular.module('myApp');
 
 app.controller('LegislatorPersonalPageController', function($scope,$routeParams,$http){
 	var cid = $routeParams.cid;
+	$scope.detail = false;
 	$http.get('/legislator/contributors/'+cid)
 	.then(function(data){
 		$scope.org_name_arr = [];
@@ -151,5 +152,14 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 
 			})
 		})
+	}
+
+	$scope.showDetails = function(index){
+		$scope.detail = !$scope.detail;
+		$scope.display_total = $scope.total_contr_arr[index]
+		$scope.display_individual = $scope.indiv_contr_arr[index]
+		$scope.display_pacs = $scope.pacs_contr_arr[index]
+		$scope.currentIndex = index;
+		console.log($scope.detail)
 	}
 })

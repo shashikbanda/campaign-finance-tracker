@@ -46,7 +46,15 @@
         <div class="card-panel grey lighten-5 z-depth-1" style="text-align:center">
         <h4>Largest Contributors</h4>
             <div ng-repeat ="org in org_name_arr track by $index">
-            <p>{{org}}</p>
+            <p ng-click="showDetails($index,org)"><strong>{{org}}</strong></p>
+                <div ng-if="currentIndex === $index">
+                    Individual: {{display_individual}}
+                    <br>
+                    Pacs: {{display_pacs}}
+                    <br>
+                    Total: {{display_total}}
+                    <br>
+                </div>
             </div>
         </div>
     </div>
