@@ -59,7 +59,12 @@ app.post('/new/register', function(req,res){
 
 app.post('/logout', function(req,res){
 	req.session.username = null;
+	console.log("current = ", req.session.username)
 	res.send({logout:true})
+})
+
+app.get('/signin', function(req,res){
+	res.send({authenticatedUser: req.session.username})
 })
 
 app.post('/signin', function(req,res){
@@ -75,7 +80,8 @@ app.post('/signin', function(req,res){
 		else{
 			if(bcrypt.compareSync(enteredPassword,rows[0].password)){
 				req.session.username = enteredUsername;
-				res.json({login:true})
+				console.log("current = ", req.session.username)
+				res.json({login:true, user:req.session.username})
 			}
 			else{
 				res.json({login:false})

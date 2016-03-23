@@ -14,8 +14,8 @@ app.controller('SignInController', function($scope,$http,$location){
 			if(data.data.login === true){
 				$scope.good = false;
 				$scope.bad = true;
-				$scope.user = $scope.username;
-				$location.path('/profile/'+$scope.username)
+				$scope.user = data.data.user; //this is from the cookie on a successful login
+				$location.path('/profile/'+$scope.user)
 			}
 			else{
 				$scope.status = "Sign In"

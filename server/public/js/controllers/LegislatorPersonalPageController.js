@@ -1,6 +1,12 @@
 var app = angular.module('myApp');
 
 app.controller('LegislatorPersonalPageController', function($scope,$routeParams,$http){
+	// $http.get('/signin')
+	// .then(function(logincheck){
+	// 	if(logincheck){
+	// 		console.log("logincheck = ", logincheck)
+	// 	}
+	// })
 	var cid = $routeParams.cid;
 	$scope.detail = false;
 	$http.get('/legislator/contributors/'+cid)
