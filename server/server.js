@@ -58,7 +58,7 @@ app.post('/new/register', function(req,res){
 })
 
 app.post('/logout', function(req,res){
-	req.session.username = "";
+	req.session.username = null;
 	res.send({logout:true})
 })
 
@@ -72,6 +72,20 @@ app.post('/signin', function(req,res){
 			req.session.username = enteredUsername;
 			res.json({login:true})
 		}
+	})
+})
+
+app.get('/track/delete/:username/:bioguideid', function(req,res){
+	var username = req.params.username;
+	var bioguide_id = req.params.bioguideid;
+	//console.log("bioguide_id ", bioguide_id)
+
+	knex('legislatorsByAssociation')
+	.where({username:username,bioguide_id:bioguide_id})
+	.del()
+	.then(function(rows){
+		//console.log("donzo manifesto")
+		res.json({complete:true})
 	})
 })
 
@@ -91,7 +105,7 @@ app.post('/track/:username', function(req,res){
 
 	for(let i =0; i < initialArray.length; i++){
 		knex('legislatorsByAssociation')
-		.where({crp_id:initialArray[i].crp_id, bioguide_id:initialArray[i].bioguide_id})
+		.where({username:username,crp_id:initialArray[i].crp_id, bioguide_id:initialArray[i].bioguide_id})
 		.then(function(row){
 			if(row.length===0){
 				knex('legislatorsByAssociation')

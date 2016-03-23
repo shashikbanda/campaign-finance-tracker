@@ -12,7 +12,6 @@ app.controller('SignInController', function($scope,$http,$location){
 		$http.post('/signin',data)
 		.then(function(data){
 			if(data.data.login === true){
-				console.log("sdf")
 				$scope.good = false;
 				$scope.bad = true;
 				$scope.user = $scope.username;
@@ -34,6 +33,7 @@ app.controller('SignInController', function($scope,$http,$location){
 		$http.post('/logout', data)
 		.then(function(dataa){
 			if(dataa.data.logout === true){
+				console.log('logging out')
 				$location.path('/')
 			}
 		})
