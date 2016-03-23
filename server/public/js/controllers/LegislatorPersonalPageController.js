@@ -24,6 +24,12 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		$scope.office = data.data.legislator['@attributes'].office;
 		$scope.picture = "https://theunitedstates.io/images/congress/225x275/"+data.data.legislator['@attributes'].bioguide_id+".jpg"
 
+		$http.get('/legislator/bills/introduced/' + $scope.bioguideid)
+		.then(function(data){
+			$scope.billArray = data.data.results[0].bills
+			//console.log($scope.billArray)
+		})
+
 		$http.get('/legislator/sunlight/'+$scope.bioguideid)
 		.then(function(moredata){
 			$scope.chamber = moredata.data.results[0].chamber
@@ -162,4 +168,6 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		$scope.currentIndex = index;
 		console.log($scope.detail)
 	}
+
+	
 })

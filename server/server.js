@@ -210,6 +210,14 @@ app.get('/legislator/contributors/:cid', function(req,res){
 	})
 })
 
+app.get('/legislator/bills/introduced/:cid', function(req,res){
+	var cid = req.params.cid;
+	request.get('http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/'+cid+'/bills/introduced.json?api-key=c18b9283d34aaa09df9fb8f33c9f907a%3A2%3A74154314', function(error, response,body){
+		var newBody = JSON.parse(body);
+		res.send(newBody)
+	})
+})
+
 app.listen(3000, function(){
 	console.log('listening on 3000')
 })
