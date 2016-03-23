@@ -22,6 +22,13 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		$scope.party = data.data.legislator['@attributes'].party;
 		$scope.bioguideid = data.data.legislator['@attributes'].bioguide_id;
 		$scope.office = data.data.legislator['@attributes'].office;
+
+		$scope.website = data.data.legislator['@attributes'].website;
+		$scope.twitter_id = data.data.legislator['@attributes'].twitter_id;
+		$scope.youtube_url = data.data.legislator['@attributes'].youtube_url;
+		$scope.facebook_url = data.data.legislator['@attributes'].facebook_id;
+
+
 		$scope.picture = "https://theunitedstates.io/images/congress/225x275/"+data.data.legislator['@attributes'].bioguide_id+".jpg"
 
 		$http.get('/legislator/bills/introduced/' + $scope.bioguideid)

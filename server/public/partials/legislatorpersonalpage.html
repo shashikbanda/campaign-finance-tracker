@@ -15,9 +15,26 @@
               </span>
         	</div>
              <a class="waves-effect waves-light btn" ng-click="addToProfile()">Track Me!</a>
+             <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Contact Me!</a>
         </div>
     </div>
 </div>
+
+<div id="modal2" class="modal">
+    <div class="modal-content">
+      <h4>Contact Information</h4>
+      <p><a href="https://www.facebook.com/{{facebook_url}}">Facebook</a></p>
+      <p><a href="{{youtube_url}}">Youtube</a></p>
+      <p><a href="https://www.twitter.com/{{twitter_id}}">Twitter</a></p>
+      <p><a href="{{website}}">Website</a></p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.modal-trigger').leanModal();
+    });
+</script>
 
 <div class="row">
     <div class="col s4">
