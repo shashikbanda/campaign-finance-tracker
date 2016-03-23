@@ -68,11 +68,23 @@ app.post('/signin', function(req,res){
 	console.log(req.session)
 	knex('users').where({username:enteredUsername})
 	.then(function(rows){
-		if(bcrypt.compareSync(enteredPassword,rows[0].password)){
-			req.session.username = enteredUsername;
-			res.json({login:true})
+		if(rows.length === 0){
+			console.log("username doesn't exist in the database")
+			res.send({login:false})
+		}
+		else{
+			if(bcrypt.compareSync(enteredPassword,rows[0].password)){
+				req.session.username = enteredUsername;
+				res.json({login:true})
+			}
+			else{
+				res.json({login:false})
+			}
 		}
 	})
+})
+app.get('/signin/error', function(req, res){
+	console.log("reached error page")
 })
 
 app.get('/track/delete/:username/:bioguideid', function(req,res){

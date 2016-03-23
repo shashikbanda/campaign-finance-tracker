@@ -22,4 +22,8 @@ app.config(function($routeProvider){
 		templateUrl: '/partials/profile.html',
 		controller:'ProfileController'
 	})
+	.when('/signin/error',{
+		templateUrl:'/partials/signinerror.html',
+		controller:'SignInController'
+	})
 })
