@@ -13,8 +13,8 @@
 		<a href="#/" class="brand-logo">Corruption Tracker</a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 		<li><a href="/#/legislators">Search by State</a></li>
-		<li ng-show="good"><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log In</a></li>
-		<li ng-show="bad"><a class="waves-effect waves-light btn" ng-click="logout()">Log Out</a></li>
+		<li ng-show="showLogin"><a class="waves-effect waves-light btn modal-trigger" href="#modal1">Log In</a></li>
+		<li ng-show="showLogout"><a class="waves-effect waves-light btn" ng-click="logout()">Log Out</a></li>
 		<li><a href="/#/profile/{{user}}">{{user}}</a></li>
 		</ul>
 	</div>
