@@ -168,11 +168,12 @@ app.put('/track/add', function(req,res){
 				bioguide_id:bioguide_id
 			})
 			.then(function(){
-				console.log("added to db")
+				res.send({added:true})
 			})
 		}
 		else{
 			console.log("that politician is alreayd in your database")
+			res.send({added:false})
 		}
 	})
 })

@@ -180,9 +180,13 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 
 						$http.put('/track/add',dataToAdd)
 						.then(function(data){
-							console.log("put")
+							if(data.data.added === true){
+								Materialize.toast('Politican Successfully Added!', 4000)
+							}
+							else{
+								Materialize.toast('Politican Already In Your Profile!', 4000)
+							}
 						})
-
 					})
 				})
 			}
@@ -190,7 +194,6 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 				$location.path('/signin/error')
 			}
 		})
-		
 	}
 
 	$scope.showDetails = function(index){
