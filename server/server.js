@@ -151,17 +151,29 @@ app.put('/track/add', function(req,res){
 	var crp_id = req.body.crp_id;
 	var bioguide_id = req.body.bioguide_id;
 	knex('legislatorsByAssociation')
-	.insert({
+	.where({
 		username:username,
-		first_name:first_name,
-		last_name:last_name,
-		state_name:state_name,
-		party:party,
-		crp_id:crp_id,
-		bioguide_id:bioguide_id
+		crp_id:crp_id
 	})
-	.then(function(){
-		console.log("added to db")
+	.then(function(rows){
+		if(rows.length === 0){
+			knex('legislatorsByAssociation')
+			.insert({
+				username:username,
+				first_name:first_name,
+				last_name:last_name,
+				state_name:state_name,
+				party:party,
+				crp_id:crp_id,
+				bioguide_id:bioguide_id
+			})
+			.then(function(){
+				console.log("added to db")
+			})
+		}
+		else{
+			console.log("that politician is alreayd in your database")
+		}
 	})
 })
 

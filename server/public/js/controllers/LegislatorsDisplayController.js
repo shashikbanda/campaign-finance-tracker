@@ -8,6 +8,7 @@ app.controller('LegislatorsDisplayController',function($scope,$http,$location){
 			$scope.stateLegislators = data.data.legislator; //array of all congressmen and senators
 
 		})
+		$scope.showSearchBox = true;
 	}
 
 	$scope.goToLegislatorPage = function(person){
