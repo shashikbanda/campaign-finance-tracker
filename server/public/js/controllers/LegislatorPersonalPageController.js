@@ -35,7 +35,9 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		$http.get('/legislator/bills/introduced/' + $scope.bioguideid)
 		.then(function(data){
 			$scope.billArray = data.data.results[0].bills
-			//console.log($scope.billArray)
+			for(let k=0; k < $scope.billArray.length; k++){
+				$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
+			}
 		})
 
 		$http.get('/legislator/sunlight/'+$scope.bioguideid)
@@ -117,9 +119,9 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 			    datasets: [
 			        {
 			            label: "Contributions by Sector",
-			            fillColor: "rgba(220,220,220,0.5)",
+			            fillColor: "#000000",
 			            strokeColor: "rgba(220,220,220,0.8)",
-			            highlightFill: "rgba(220,220,220,0.75)",
+			            highlightFill: "#009688",
 			            highlightStroke: "rgba(220,220,220,1)",
 			            data: dataArray
 			        }
