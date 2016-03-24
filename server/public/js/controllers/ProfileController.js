@@ -50,7 +50,6 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 				var crp_id = person.crp_id;
 				$http.get('/track/delete/'+username+'/'+bioguide_id)
 				.then(function(data){
-					console.log("hello, it's me");
 					if(data.data.complete === true){
 						$location.path('/profile/'+username)
 					}

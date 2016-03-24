@@ -29,6 +29,8 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 				}
 				else{
 					$scope.status = "Sign In"
+					$scope.username = "";
+					$scope.password = "";
 					$location.path('/signin/error')
 				}
 			})

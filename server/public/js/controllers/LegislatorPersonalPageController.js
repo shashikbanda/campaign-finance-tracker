@@ -79,8 +79,8 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 				data.push(
 				{	
 					value : industryContributionData[i]['@attributes'].total,
-					color : 'blue',
-					highlight : 'green',
+					color : getRandomColor(),
+					highlight : getRandomColor(),
 					label : industryContributionData[i]['@attributes'].industry_name
 				})
 			}
