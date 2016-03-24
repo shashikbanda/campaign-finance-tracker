@@ -201,9 +201,13 @@ app.get('/legislator/contribution/industry/:cid/:year',function(req,res){
 	})
 })
 
-app.get('/legislator/contribution/sector/:cid', function(req,res){
+app.get('/legislator/contribution/sector/:cid/:year', function(req,res){
 	var cid = req.params.cid;
-	request.get('http://www.opensecrets.org/api/?method=candSector&cid='+ cid +'&cycle=2016&apikey=3888a2822de7936ee277abdcc92caa1b&output=json', function(error,response,body){
+	var year = req.params.year;
+	if(year === undefined){
+		year = 2016
+	}
+	request.get('http://www.opensecrets.org/api/?method=candSector&cid='+ cid +'&cycle='+year+'&apikey=3888a2822de7936ee277abdcc92caa1b&output=json', function(error,response,body){
 		var newBody = JSON.parse(body);
 		res.send(newBody)
 	})

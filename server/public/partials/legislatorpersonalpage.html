@@ -52,7 +52,7 @@
     <div class="col s4">
         <h4>Contributions by Sector</h4>
         <label>Year</label>
-          <select class="browser-default" ng-model="sectorYear">
+          <select class="browser-default" ng-model="sectorYear" ng-change="getSectorYear(sectorYear)">
             <option value="" disabled selected>Select Year</option>
             <option value="2012">2012</option>
             <option value="2014">2014</option>

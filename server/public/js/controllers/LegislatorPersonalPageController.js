@@ -86,7 +86,6 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 			}
 		})
 		.then(function(){
-			//debugger;
 			var canvasContainer = document.getElementById("canvasContainer");
 			var canvas = document.getElementById("myChart");
 			canvasContainer.removeChild(canvas);
@@ -100,35 +99,38 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 			var myDoughnutChart = new Chart(ctx).Pie(data);
 		})
 	}
-	
-	$http.get('/legislator/contribution/sector/'+ cid)
-	.then(function(sectordata){
-		var sectorContributionData = sectordata.data.response.sectors.sector;
-		for(var i = 0; i < sectorContributionData.length; i++){
-			$scope.allLabelArray.push(sectorContributionData[i]['@attributes'].sector_name)
-			$scope.labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
-			dataArray.push(sectorContributionData[i]['@attributes'].total)
-		}
-		console.log(dataArray)
-	})
-	.then(function(){
-		var data = {
-		    labels: $scope.labelArray,
-		    datasets: [
-		        {
-		            label: "Contributions by Sector",
-		            fillColor: "rgba(220,220,220,0.5)",
-		            strokeColor: "rgba(220,220,220,0.8)",
-		            highlightFill: "rgba(220,220,220,0.75)",
-		            highlightStroke: "rgba(220,220,220,1)",
-		            data: dataArray
-		        }
-		    ]
-		};
-		var ctx = document.getElementById("bySector").getContext("2d");
-		var myBarChart = new Chart(ctx).Bar(data);
+	$scope.getSectorYear = function(sectorYear){
+		$http.get('/legislator/contribution/sector/'+ cid + '/'+sectorYear)
+		.then(function(sectordata){
+			var sectorContributionData = sectordata.data.response.sectors.sector;
+			$scope.labelArray = [];
+			for(var i = 0; i < sectorContributionData.length; i++){
+				$scope.allLabelArray.push(sectorContributionData[i]['@attributes'].sector_name)
+				$scope.labelArray.push(sectorContributionData[i]['@attributes'].sector_name)
+				dataArray.push(sectorContributionData[i]['@attributes'].total)
+			}
+			console.log(dataArray)
+		})
+		.then(function(){
+			var data = {
+			    labels: $scope.labelArray,
+			    datasets: [
+			        {
+			            label: "Contributions by Sector",
+			            fillColor: "rgba(220,220,220,0.5)",
+			            strokeColor: "rgba(220,220,220,0.8)",
+			            highlightFill: "rgba(220,220,220,0.75)",
+			            highlightStroke: "rgba(220,220,220,1)",
+			            data: dataArray
+			        }
+			    ]
+			};
+			var ctx = document.getElementById("bySector").getContext("2d");
+			var myBarChart = new Chart(ctx).Bar(data);
 
-	})
+		})
+	}
+	
 	function parseString(inputWord){
 	    var newWord = inputWord.toLowerCase();
 	    var keywordArray = [];
