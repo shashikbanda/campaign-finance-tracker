@@ -30,7 +30,6 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 							}
 							$http.post('/track/'+$scope.user, info)
 							.then(function(){
-								console.log("posted that shit")
 							})
 						}
 					})
@@ -57,7 +56,7 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 			}
 		}
 		else{
-			$location.path('/signin/error')
+			$location.path('/error')// CHANGE TO ERROR PAGE
 		}
 	})
 	
