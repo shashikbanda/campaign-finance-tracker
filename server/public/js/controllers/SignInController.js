@@ -4,7 +4,6 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 	$http.get('/signin')
 	.then(function(data){
 		if(data.data.authenticatedUser !== null){
-			console.log(data.data.authenticatedUser)
 			$scope.showLogin = false;
 			$scope.showLogout = true;
 			$scope.user = data.data.authenticatedUser;
@@ -43,7 +42,10 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 			$http.post('/logout', data)
 			.then(function(dataa){
 				if(dataa.data.logout === true){
-					$location.url('/')
+					$scope.showLogin = true;
+					$scope.showLogout = false;
+					$location.path('/');
+					
 				}
 			})
 
