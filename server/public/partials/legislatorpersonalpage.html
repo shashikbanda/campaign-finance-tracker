@@ -14,8 +14,9 @@
                 <p>{{chamber}}</p>
               </span>
         	</div>
-             <a class="waves-effect waves-light btn" ng-click="addToProfile()">Track Me!</a>
+             <a class="btn" ng-click="addToProfile()" onclick="Materialize.toast('Added to Your Profile!', 4000)">Track Me!</a>
              <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Contact Me!</a>
+
         </div>
     </div>
 </div>
@@ -40,18 +41,18 @@
     <div class="col s4">
         <h4>Contributions by Industry</h4>
         <label>Year</label>
-          <select class="browser-default">
+          <select class="browser-default" ng-model="industryYear" ng-change="getYear(industryYear)">
             <option value="" disabled selected>Select Year</option>
             <option value="2012">2012</option>
             <option value="2014">2014</option>
             <option value="2016">2016</option>
           </select>
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div id="canvasContainer"><canvas id="myChart" width="400" height="400"></canvas></div>
     </div>
     <div class="col s4">
         <h4>Contributions by Sector</h4>
         <label>Year</label>
-          <select class="browser-default">
+          <select class="browser-default" ng-model="sectorYear">
             <option value="" disabled selected>Select Year</option>
             <option value="2012">2012</option>
             <option value="2014">2014</option>

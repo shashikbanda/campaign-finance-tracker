@@ -45,7 +45,6 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 					$scope.showLogin = true;
 					$scope.showLogout = false;
 					$location.path('/');
-					
 				}
 			})
 

@@ -60,6 +60,7 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	var dataArray = [];
 	$scope.labelArray = [];
 	$scope.allLabelArray = [];
+
 	function getRandomColor() {
 	    var letters = '0123456789ABCDEF'.split('');
 	    var color = '#';
@@ -68,26 +69,39 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 	    }
 	    return color;
 	}
-	$http.get('/legislator/contribution/industry/'+cid)
-	.then(function(industrydata){
-		var industryContributionData = industrydata.data.response.industries.industry;
-		for(var i=0; i<industryContributionData.length;i++){
-			$scope.allLabelArray.push(industryContributionData[i]['@attributes'].industry_name)
-			data.push(
-			{	
-				value : industryContributionData[i]['@attributes'].total,
-				color : getRandomColor(),
-				highlight : getRandomColor(),
-				label : industryContributionData[i]['@attributes'].industry_name
-			})
-		}
-	})
-	.then(function(){
-		console.log(data)
-		var ctx = document.getElementById("myChart").getContext("2d");
-		var myDoughnutChart = new Chart(ctx).Pie(data);
-	})
-	$http.get('/legislator/contribution/sector/'+cid)
+	$scope.getYear = function(industryYear){
+		$http.get('/legislator/contribution/industry/'+ cid+'/'+industryYear)
+		.then(function(industrydata){
+			var industryContributionData = industrydata.data.response.industries.industry;
+			data = [];
+			for(var i=0; i<industryContributionData.length;i++){
+				$scope.allLabelArray.push(industryContributionData[i]['@attributes'].industry_name)
+				data.push(
+				{	
+					value : industryContributionData[i]['@attributes'].total,
+					color : 'blue',
+					highlight : 'green',
+					label : industryContributionData[i]['@attributes'].industry_name
+				})
+			}
+		})
+		.then(function(){
+			//debugger;
+			var canvasContainer = document.getElementById("canvasContainer");
+			var canvas = document.getElementById("myChart");
+			canvasContainer.removeChild(canvas);
+			canvas = document.createElement("canvas")
+			canvas.setAttribute('id','myChart');
+			canvas.setAttribute('width','400');
+			canvas.setAttribute('height','400');
+
+			canvasContainer.appendChild(canvas)
+			var ctx = canvas.getContext("2d");
+			var myDoughnutChart = new Chart(ctx).Pie(data);
+		})
+	}
+	
+	$http.get('/legislator/contribution/sector/'+ cid)
 	.then(function(sectordata){
 		var sectorContributionData = sectordata.data.response.sectors.sector;
 		for(var i = 0; i < sectorContributionData.length; i++){
@@ -185,6 +199,8 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		$scope.currentIndex = index;
 		console.log($scope.detail)
 	}
+	console.log("$scope.industryYear = ", $scope.iYear)
+	
 
 	
 })
