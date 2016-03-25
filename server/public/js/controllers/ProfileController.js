@@ -83,6 +83,14 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 			$location.path('/error')// CHANGE TO ERROR PAGE
 		}
 	})
+	$scope.viewSaved = function(){
+		$scope.showSavedPoliticans = true;
+		$scope.showLatestBills = false;
+	}
+	$scope.viewBills = function(){
+		$scope.showSavedPoliticans = false;
+		$scope.showLatestBills = true;
+	}
 	
 	
 })
