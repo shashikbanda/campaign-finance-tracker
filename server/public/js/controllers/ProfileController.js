@@ -1,9 +1,8 @@
 var app = angular.module('myApp');
 
 
-app.controller('ProfileController', function($scope,$routeParams,$http,$location){
+app.controller('ProfileController', function($scope,$routeParams,$http,$location,$timeout){
 	$scope.user = $routeParams.username;
-
 	$http.get('/signin')
 	.then(function(data){
 		if(data.data.authenticatedUser === $scope.user){
@@ -43,11 +42,21 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 				})
 				.then(function(){
 					var billPromise = [];
+					var timeoutPromises = [];
+					
 					for(let l=0; l < $scope.congresspersons.length; l++){ //2 times on cheeselord
-						var billReturn = $http.get('/legislator/bills/introduced/' + $scope.congresspersons[l].bioguide_id)
-						billPromise.push(billReturn)
+						var timeoutIndex = $timeout(function(){
+							var billReturn = $http.get('/legislator/bills/introduced/' + $scope.congresspersons[l].bioguide_id)
+							billPromise.push(billReturn)
+						}, 1500*l)
+
+						timeoutPromises.push(timeoutIndex)
+						
 					}
-					Promise.all(billPromise)
+					
+					Promise.all(timeoutPromises).then(function() {
+						return Promise.all(billPromise);
+					})
 					.then(function(resolvedBills){
 						var allBills = [];
 						for(let k = 0; k < resolvedBills.length; k++){
@@ -60,7 +69,6 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 						});
 
 						$scope.billArray = allBills;
-						console.log($scope.billArray)
 						$scope.billArray = $scope.billArray.slice(0,20)
 						for(let k=0; k < $scope.billArray.length; k++){
 							$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
@@ -82,7 +90,7 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 			}
 		}
 		else{
-			$location.path('/error')// CHANGE TO ERROR PAGE
+			//$location.path('/error')
 		}
 	})
 	$scope.viewSaved = function(){

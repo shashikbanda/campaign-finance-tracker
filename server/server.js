@@ -27,8 +27,11 @@ app.get('/',function(req, res){
 
 });
 
-app.get('/new/register', function(req,res){
-	res.redirect('/#/profile/')
+app.get('/new/register/:username', function(req,res){
+	var username = req.params.username;
+	req.session.username = username;
+	console.log(username)
+	res.json({login:true})
 })
 
 app.post('/new/register', function(req,res){

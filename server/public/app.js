@@ -16,7 +16,7 @@ app.config(function($routeProvider){
 	})
 	.when('/register',{
 		templateUrl:'/partials/register.html',
-		controller:'RegisterController'
+		controller:'SignInController'
 	})
 	.when('/profile/:username',{
 		templateUrl: '/partials/profile.html',
@@ -26,8 +26,8 @@ app.config(function($routeProvider){
 		templateUrl:'/partials/signinerror.html',
 		controller:'SignInController'
 	})
-	.when('/error',{
-		templateUrl:'/partials/error.html',
-		controller:'MainController'
-	})
+	// .when('/error',{
+	// 	templateUrl:'/partials/error.html',
+	// 	controller:'MainController'
+	// })
 })
