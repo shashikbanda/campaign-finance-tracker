@@ -32,13 +32,13 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 
 		$scope.picture = "https://theunitedstates.io/images/congress/225x275/"+data.data.legislator['@attributes'].bioguide_id+".jpg"
 
-		$http.get('/legislator/bills/introduced/' + $scope.bioguideid)
-		.then(function(data){
-			$scope.billArray = data.data.results[0].bills
-			for(let k=0; k < $scope.billArray.length; k++){
-				$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
-			}
-		})
+		// $http.get('/legislator/bills/introduced/' + $scope.bioguideid)
+		// .then(function(data){
+		// 	$scope.billArray = data.data.results[0].bills
+		// 	for(let k=0; k < $scope.billArray.length; k++){
+		// 		$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
+		// 	}
+		// })
 
 		$http.get('/legislator/sunlight/'+$scope.bioguideid)
 		.then(function(moredata){
@@ -133,33 +133,33 @@ app.controller('LegislatorPersonalPageController', function($scope,$routeParams,
 		})
 	}
 	
-	function parseString(inputWord){
-	    var newWord = inputWord.toLowerCase();
-	    var keywordArray = [];
-	    var startIndex = 0;
-	    var endIndex = 0;
-	    for(var i=0; i<newWord.length;i++){
-	        if(newWord[i] === "/" || newWord[i] === '&' || newWord[i] === ' '){
-	            endIndex = i;
-	            keywordArray.push(newWord.substring(startIndex,endIndex));
-	            startIndex = i+1;
-	        }
-	    }
-	    keywordArray.push(newWord.substring(startIndex,newWord.length))
+	// function parseString(inputWord){
+	//     var newWord = inputWord.toLowerCase();
+	//     var keywordArray = [];
+	//     var startIndex = 0;
+	//     var endIndex = 0;
+	//     for(var i=0; i<newWord.length;i++){
+	//         if(newWord[i] === "/" || newWord[i] === '&' || newWord[i] === ' '){
+	//             endIndex = i;
+	//             keywordArray.push(newWord.substring(startIndex,endIndex));
+	//             startIndex = i+1;
+	//         }
+	//     }
+	//     keywordArray.push(newWord.substring(startIndex,newWord.length))
 	    
-	    for(var j = 0 ; j < keywordArray.length; j++){
-	        if(keywordArray[j] === ' ' || keywordArray[j] === '&' || newWord[i] === "/" || newWord[i] === ''){
-	            keywordArray.splice(j, 2);
-	        }
-	    }
-	    return keywordArray;
-	}
+	//     for(var j = 0 ; j < keywordArray.length; j++){
+	//         if(keywordArray[j] === ' ' || keywordArray[j] === '&' || newWord[i] === "/" || newWord[i] === ''){
+	//             keywordArray.splice(j, 2);
+	//         }
+	//     }
+	//     return keywordArray;
+	// }
 
-	$scope.getAreaCategory = function(area){
-		$scope.category = parseString(area); // category that needs to be parsed and compared to subject in API call
-		console.log($scope.category)
+	// $scope.getAreaCategory = function(area){
+	// 	$scope.category = parseString(area); // category that needs to be parsed and compared to subject in API call
+	// 	console.log($scope.category)
 		
-	}
+	// }
 
 	$scope.addToProfile = function(){
 		$http.get('/signin')
