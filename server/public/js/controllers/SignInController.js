@@ -1,8 +1,6 @@
 var app = angular.module('myApp');
 
 app.controller('SignInController', function($scope,$http,$location,$route){
-
-
 	$scope.submitForm = function(){
 		var data = {
 			username : $scope.username,
@@ -23,8 +21,6 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 				$scope.showLogin = false;
 				$scope.showLogout = true;
 				$scope.user = $scope.username;
-				$scope.user = "poooooop";
-				//$scope.$apply();
 				$location.url('/profile/' + $scope.username)
 			}
 		})

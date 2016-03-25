@@ -49,9 +49,7 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 							var billReturn = $http.get('/legislator/bills/introduced/' + $scope.congresspersons[l].bioguide_id)
 							billPromise.push(billReturn)
 						}, 1500*l)
-
 						timeoutPromises.push(timeoutIndex)
-						
 					}
 					
 					Promise.all(timeoutPromises).then(function() {
