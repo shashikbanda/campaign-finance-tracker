@@ -45,12 +45,6 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 					var billPromise = [];
 					for(let l=0; l < $scope.congresspersons.length; l++){ //2 times on cheeselord
 						var billReturn = $http.get('/legislator/bills/introduced/' + $scope.congresspersons[l].bioguide_id)
-						// .then(function(data){
-						// 	$scope.billArray = data.data.results[0].bills
-						// 	// for(let k=0; k < $scope.billArray.length; k++){
-						// 	// 	$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
-						// 	// }
-						// })
 						billPromise.push(billReturn)
 					}
 					Promise.all(billPromise)
@@ -59,10 +53,18 @@ app.controller('ProfileController', function($scope,$routeParams,$http,$location
 						for(let k = 0; k < resolvedBills.length; k++){
 							allBills = allBills.concat(resolvedBills[k].data.results[0].bills)
 						}
-						allBills.sort();
+						allBills.sort(function(a,b){
+							var dateA = new Date(a.introduced_date);
+							var dateB = new Date(b.introduced_date);
+							return dateB - dateA
+						});
+
 						$scope.billArray = allBills;
-						$scope.billArray = $scope.billArray.slice(0,20)
 						console.log($scope.billArray)
+						$scope.billArray = $scope.billArray.slice(0,20)
+						for(let k=0; k < $scope.billArray.length; k++){
+							$scope.billArray[k].title = $scope.billArray[k].title.replace(new RegExp("&#x27;", "g"), "'");
+						}
 					})
 				})
 			})
