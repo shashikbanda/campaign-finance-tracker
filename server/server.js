@@ -30,8 +30,7 @@ app.get('/',function(req, res){
 app.get('/new/register/:username', function(req,res){
 	var username = req.params.username;
 	req.session.username = username;
-	console.log(username)
-	res.json({login:true})
+	res.json({login:true, authenticatedUser:username})
 })
 
 app.post('/new/register', function(req,res){
@@ -62,7 +61,6 @@ app.post('/new/register', function(req,res){
 
 app.post('/logout', function(req,res){
 	req.session.username = null;
-	console.log("current = ", req.session.username)
 	res.send({logout:true})
 })
 

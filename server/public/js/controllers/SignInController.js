@@ -2,6 +2,7 @@ var app = angular.module('myApp');
 
 app.controller('SignInController', function($scope,$http,$location,$route){
 	$scope.submitForm = function(){
+		$route.reload();
 		var data = {
 			username : $scope.username,
 			zipcode : $scope.zipcode,
@@ -10,7 +11,7 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 		}
 		$http.post('/new/register', data)
 		.then(function(){
-			console.log("reaching the .then for the psot")
+			//
 		})
 
 		$http.get('/new/register/'+$scope.username)
@@ -20,8 +21,8 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 			if(dataa.data.login === true){
 				$scope.showLogin = false;
 				$scope.showLogout = true;
-				$scope.user = $scope.username;
-				$location.url('/profile/' + $scope.username)
+				$scope.user = dataa.data.authenticatedUser;
+				$location.url('profile/' + $scope.user)
 			}
 		})
 	}
