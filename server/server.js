@@ -52,7 +52,7 @@ app.post('/new/register', function(req,res){
 				knex('users').where({username:username})
 				.update({password:hash})
 				.then(function(){
-					//res.cookie('username',username)
+					req.session.username = username;
 				})
 			})
 		}

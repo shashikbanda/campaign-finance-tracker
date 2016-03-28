@@ -2,7 +2,6 @@ var app = angular.module('myApp');
 
 app.controller('SignInController', function($scope,$http,$location,$route){
 	$scope.submitForm = function(){
-		$route.reload();
 		var data = {
 			username : $scope.username,
 			zipcode : $scope.zipcode,
@@ -25,6 +24,7 @@ app.controller('SignInController', function($scope,$http,$location,$route){
 				$location.url('profile/' + $scope.user)
 			}
 		})
+		$route.reload();
 	}
 	$http.get('/signin')
 	.then(function(data){
