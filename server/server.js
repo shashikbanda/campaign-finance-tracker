@@ -38,7 +38,7 @@ app.post('/new/register', function(req,res){
 	var zipcode = req.body.zipcode;
 	var email = req.body.email;
 	var password = req.body.password;
-	
+
 	knex('users').where({username:username})
 	.then(function(data){
 		if(data.length === 0){
@@ -60,30 +60,25 @@ app.post('/new/register', function(req,res){
 })
 
 app.post('/logout', function(req,res){
-	console.log("on logout = ", req.session.username)
 	req.session.username = null;
 	res.send({logout:true})
 })
 
 app.get('/signin', function(req,res){
-	console.log(req.session.username)
 	res.send({authenticatedUser: req.session.username})
 })
 
 app.post('/signin', function(req,res){
 	var enteredUsername = req.body.entered_username;
 	var enteredPassword = req.body.entered_password;
-	console.log(req.session)
 	knex('users').where({username:enteredUsername})
 	.then(function(rows){
 		if(rows.length === 0){
-			console.log("username doesn't exist in the database")
 			res.send({login:false})
 		}
 		else{
 			if(bcrypt.compareSync(enteredPassword,rows[0].password)){
 				req.session.username = enteredUsername;
-				console.log("current signin post = ", req.session.username)
 				res.json({login:true, user:req.session.username})
 			}
 			else{
@@ -93,19 +88,16 @@ app.post('/signin', function(req,res){
 	})
 })
 app.get('/signin/error', function(req, res){
-	console.log("reached error page")
 })
 
 app.get('/track/delete/:username/:bioguideid', function(req,res){
 	var username = req.params.username;
 	var bioguide_id = req.params.bioguideid;
-	//console.log("bioguide_id ", bioguide_id)
 
 	knex('legislatorsByAssociation')
 	.where({username:username,bioguide_id:bioguide_id})
 	.del()
 	.then(function(rows){
-		//console.log("donzo manifesto")
 		res.json({complete:true})
 	})
 })
@@ -135,7 +127,7 @@ app.post('/track/:username', function(req,res){
 					last_name:initialArray[i].last_name,
 					state_name:initialArray[i].state_name,
 					party:initialArray[i].party,
-					crp_id:initialArray[i].crp_id, 
+					crp_id:initialArray[i].crp_id,
 					bioguide_id:initialArray[i].bioguide_id})
 				.then(function(dataaa){
 					//
