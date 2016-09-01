@@ -194,7 +194,7 @@ app.get('/legislator/sunlight/:bioguideid',function(req,res){
 	request.get('https://congress.api.sunlightfoundation.com/legislators?bioguide_id=' +bioguide_id+'&apikey=4def00d383ea4b4fb61822f11db486fc',function(error,response,body){
 		var newBody = JSON.parse(body);
 		res.send(newBody)
-	}) //4def00d383ea4b4fb61822f11db486fc
+	})
 })
 
 app.get('/legislator/contribution/industry/:cid/:year',function(req,res){
