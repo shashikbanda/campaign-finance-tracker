@@ -15,8 +15,6 @@ The Campaign Finance Tracker provides information on all 535 congressmen in the 
 Each member of congress can be looked up by their state.
 Information provided on each congressman includes top individual donors by industry and sector.
 
-##To Run
+## To Run
 In server folder:
-With nodemon npm package...
-
-nodemon server.js
+node server.js
