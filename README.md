@@ -18,4 +18,5 @@ Information provided on each congressman includes top individual donors by indus
 ## To Run
 In server folder:
 - npm install
+- cd server
 - node server.js
