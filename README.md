@@ -1,4 +1,4 @@
-# corruption-tracker
+# campaign-finance-tracker
 
 ## Tech Stack
 - Angular
